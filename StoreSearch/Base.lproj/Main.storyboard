@@ -15,8 +15,38 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TAW-Vp-cKT">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="qf4-h7-mYX"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="fa7-9U-rhm"/>
+                                </connections>
+                            </tableView>
+                            <searchBar contentMode="redraw" placeholder="App name, artist, song, album, e-book" translatesAutoresizingMaskIntoConstraints="NO" id="FbF-tj-xzY">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="QKf-6e-4Du"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FbF-tj-xzY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="2EM-Wv-VH9"/>
+                            <constraint firstItem="TAW-Vp-cKT" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="2sV-hj-ufD"/>
+                            <constraint firstAttribute="trailing" secondItem="FbF-tj-xzY" secondAttribute="trailing" id="LL6-2v-FvO"/>
+                            <constraint firstAttribute="trailing" secondItem="TAW-Vp-cKT" secondAttribute="trailing" id="YMv-6n-nTu"/>
+                            <constraint firstItem="FbF-tj-xzY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="bB9-WA-c8u"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="TAW-Vp-cKT" secondAttribute="bottom" id="gPV-ea-bZl"/>
+                            <constraint firstItem="TAW-Vp-cKT" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="tLu-fl-QIM"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="FbF-tj-xzY" id="eEM-ZL-cIa"/>
+                        <outlet property="tableView" destination="TAW-Vp-cKT" id="Wpw-Hx-Lwd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
