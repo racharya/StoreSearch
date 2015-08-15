@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8032DEAD1B7FB4A2002623BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DEAC1B7FB4A2002623BC /* AppDelegate.swift */; };
-		8032DEAF1B7FB4A2002623BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DEAE1B7FB4A2002623BC /* ViewController.swift */; };
+		8032DEAF1B7FB4A2002623BC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DEAE1B7FB4A2002623BC /* SearchViewController.swift */; };
 		8032DEB21B7FB4A2002623BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8032DEB01B7FB4A2002623BC /* Main.storyboard */; };
 		8032DEB41B7FB4A2002623BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8032DEB31B7FB4A2002623BC /* Images.xcassets */; };
 		8032DEB71B7FB4A2002623BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8032DEB51B7FB4A2002623BC /* LaunchScreen.xib */; };
@@ -29,7 +29,7 @@
 		8032DEA71B7FB4A2002623BC /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8032DEAB1B7FB4A2002623BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8032DEAC1B7FB4A2002623BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8032DEAE1B7FB4A2002623BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8032DEAE1B7FB4A2002623BC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8032DEB11B7FB4A2002623BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8032DEB31B7FB4A2002623BC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8032DEB61B7FB4A2002623BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				8032DEAC1B7FB4A2002623BC /* AppDelegate.swift */,
-				8032DEAE1B7FB4A2002623BC /* ViewController.swift */,
+				8032DEAE1B7FB4A2002623BC /* SearchViewController.swift */,
 				8032DEB01B7FB4A2002623BC /* Main.storyboard */,
 				8032DEB31B7FB4A2002623BC /* Images.xcassets */,
 				8032DEB51B7FB4A2002623BC /* LaunchScreen.xib */,
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8032DEAF1B7FB4A2002623BC /* ViewController.swift in Sources */,
+				8032DEAF1B7FB4A2002623BC /* SearchViewController.swift in Sources */,
 				8032DEAD1B7FB4A2002623BC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
