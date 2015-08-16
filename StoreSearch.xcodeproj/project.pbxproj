@@ -14,6 +14,8 @@
 		8032DEB71B7FB4A2002623BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8032DEB51B7FB4A2002623BC /* LaunchScreen.xib */; };
 		8032DEC31B7FB4A2002623BC /* StoreSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DEC21B7FB4A2002623BC /* StoreSearchTests.swift */; };
 		8032DECD1B802664002623BC /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DECC1B802664002623BC /* SearchResult.swift */; };
+		8032DECF1B805665002623BC /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8032DECE1B805665002623BC /* SearchResultCell.xib */; };
+		8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DED01B8071E8002623BC /* SearchResultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		8032DEC11B7FB4A2002623BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8032DEC21B7FB4A2002623BC /* StoreSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchTests.swift; sourceTree = "<group>"; };
 		8032DECC1B802664002623BC /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		8032DECE1B805665002623BC /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
+		8032DED01B8071E8002623BC /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,8 @@
 				8032DEB51B7FB4A2002623BC /* LaunchScreen.xib */,
 				8032DEAA1B7FB4A2002623BC /* Supporting Files */,
 				8032DECC1B802664002623BC /* SearchResult.swift */,
+				8032DECE1B805665002623BC /* SearchResultCell.xib */,
+				8032DED01B8071E8002623BC /* SearchResultCell.swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -197,6 +203,7 @@
 			files = (
 				8032DEB21B7FB4A2002623BC /* Main.storyboard in Resources */,
 				8032DEB71B7FB4A2002623BC /* LaunchScreen.xib in Resources */,
+				8032DECF1B805665002623BC /* SearchResultCell.xib in Resources */,
 				8032DEB41B7FB4A2002623BC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +224,7 @@
 			files = (
 				8032DEAF1B7FB4A2002623BC /* SearchViewController.swift in Sources */,
 				8032DECD1B802664002623BC /* SearchResult.swift in Sources */,
+				8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */,
 				8032DEAD1B7FB4A2002623BC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
