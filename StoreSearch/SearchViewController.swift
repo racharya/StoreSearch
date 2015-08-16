@@ -61,9 +61,11 @@ extension SearchViewController: UITableViewDataSource {
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! UITableViewCell!
         
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
         }
-        cell.textLabel!.text = searchResults[indexPath.row]
+        let searchResult = searchResults[indexPath.row]
+        cell.textLabel!.text = searchResult.name
+        cell.detailTextLabel!.text = searchResult.artistName
         return cell
     }
 }//end of UITableViewDataSource
