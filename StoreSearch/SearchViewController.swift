@@ -89,5 +89,17 @@ extension SearchViewController: UITableViewDataSource {
 }//end of UITableViewDataSource
 
 extension SearchViewController: UITableViewDelegate {
+    //deselects the row with animation
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    //make sure to select only row with actual search results
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if searchResults.count == 0 {
+            return nil
+        } else {
+            return indexPath
+        }
+    }
     
 }//end of UITableViewDelegate
