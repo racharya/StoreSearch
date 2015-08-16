@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     var searchResults = [SearchResult]()
+    var hasSearched = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +36,17 @@ extension SearchViewController: UISearchBarDelegate {
         println("The search text is: '\(searchBar.text)'")
         
         searchResults = [SearchResult]()//clear old collection
+        //testing if app can handle no results found situation
+        if searchBar.text != "justin bieber" {
+            
         for i in 0...2 {
             let searchResult = SearchResult()
             searchResult.name = String(format:"Fake Result %d for",i)
             searchResult.artistName = searchBar.text
             searchResults.append(searchResult)
         }
+        }
+        hasSearched = true
         tableView.reloadData()
     }
     
@@ -52,7 +58,14 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if !hasSearched {
+            return 0
+        } else if searchResults.count == 0 {
+            return 1
+        } else {
         return searchResults.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -63,9 +76,14 @@ extension SearchViewController: UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
         }
+        if searchResults.count == 0 {
+            cell.textLabel!.text = "(Nothing found)"
+            cell.detailTextLabel!.text = ""
+        } else {
         let searchResult = searchResults[indexPath.row]
         cell.textLabel!.text = searchResult.name
         cell.detailTextLabel!.text = searchResult.artistName
+        }
         return cell
     }
 }//end of UITableViewDataSource
