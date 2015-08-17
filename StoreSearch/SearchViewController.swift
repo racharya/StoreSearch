@@ -14,14 +14,21 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var searchResults = [SearchResult]()
     var hasSearched = false
+   
+    //new struct to reuse identifier
+    struct TableViewCellIdentifiers {
+        //common tric to use static let
+        //static value can be used without an instance
+        static let searchResultCell = "SearchResultCell"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //tells table view to add a 64 pt margin at the top, (20 for status bar and 44 for search bar)
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         //load nib, ask table view to register it using identifier
-        var cellNib = UINib(nibName: "SearchResultCell", bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "SearchResultCell")
+        var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
         tableView.rowHeight = 80
     }
     
@@ -74,7 +81,7 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
         
         if searchResults.count == 0 {
             cell.nameLabel.text = "(Nothing found)"
