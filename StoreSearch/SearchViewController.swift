@@ -14,10 +14,11 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var searchResults = [SearchResult]()
     var hasSearched = false
+//    @IBOutlet weak var searchBar2: UISearchBar!
    
     //new struct to reuse identifier
     struct TableViewCellIdentifiers {
-        //common tric to use static let
+        //common trick to use static let
         //static value can be used without an instance
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
@@ -41,28 +42,48 @@ class SearchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //Builds url as a string by placing the text from the search bar behind the "term=" param and then returns this string into an NSURL obj
+    func urlWithSearchText(searchText: String) -> NSURL {
+        
+        let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
+        let urlString = String(format: "http://itunes.apple.com/search?term=%@", escapedSearchText)
+        let url = NSURL(string: urlString)
+        //force unwrapping failable initializers to return an actual NSURL obj
+        return url!
+    }
     
+    func performStoreRequestWithURL(url: NSURL) -> String? {
+        var error: NSError?
+        // String(contentsOfURL, encoding, error) is a constructor of the String class that returns a
+        //new string object with the data that it receives from the server at the other end of the URL
+        if let resultString = String(contentsOfURL: url, encoding: NSUTF8StringEncoding, error: &error) {
+            return resultString
+        } else if let error = error {
+            println("Download Error: \(error)")
+        } else {
+            println("Unknown Download Error")
+        }
+        return nil
+    }
 }//end of SearchViewController
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
-        searchBar.resignFirstResponder() // tells UISearchBar that it should no longer listen to keyboard input
-        println("The search text is: '\(searchBar.text)'")
+        if !searchBar.text.isEmpty {
+            searchBar.resignFirstResponder() // tells UISearchBar that it should no longer listen to keyboard input
+            println("The search text is: '\(searchBar.text)'")
+            hasSearched = true
         
-        searchResults = [SearchResult]()//clear old collection
-        //testing if app can handle no results found situation
-        if searchBar.text != "justin bieber" {
-            
-            for i in 0...2 {
-                let searchResult = SearchResult()
-                searchResult.name = String(format:"Fake Result %d for",i)
-                searchResult.artistName = searchBar.text
-                searchResults.append(searchResult)
+            searchResults = [SearchResult]()//clear old collection
+            let url = urlWithSearchText(searchBar.text)
+            println("URL: '\(url)'")
+            if let jsonString = performStoreRequestWithURL(url) {//invokes search and returns json data received from the server
+                println("Received JSON string '\(jsonString)'")
             }
+            
+            tableView.reloadData()
         }
-        hasSearched = true
-        tableView.reloadData()
     }
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
