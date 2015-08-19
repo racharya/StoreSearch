@@ -53,6 +53,7 @@ class SearchViewController: UIViewController {
     }
     
     func performStoreRequestWithURL(url: NSURL) -> String? {
+        
         var error: NSError?
         // String(contentsOfURL, encoding, error) is a constructor of the String class that returns a
         //new string object with the data that it receives from the server at the other end of the URL
@@ -62,6 +63,21 @@ class SearchViewController: UIViewController {
             println("Download Error: \(error)")
         } else {
             println("Unknown Download Error")
+        }
+        return nil
+    }
+    
+    func parseJSON(jsonString: String) -> [String: AnyObject]? { // returns dictionary of type [String: AnyObject]
+        
+        //Since JSON is alreay in a String form, need to put it into an NSData object before conversion to dictionary
+        if let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) {
+            var error: NSError?
+            //Using NSJSONSerialization class to conver the JSON search results to a Dictionary
+            if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &error) as? [String: AnyObject] {
+                return json
+            } else if let error = error {
+                println("Unknown JSON Error")
+            }
         }
         return nil
     }
@@ -80,6 +96,9 @@ extension SearchViewController: UISearchBarDelegate {
             println("URL: '\(url)'")
             if let jsonString = performStoreRequestWithURL(url) {//invokes search and returns json data received from the server
                 println("Received JSON string '\(jsonString)'")
+                if let dictionary = parseJSON(jsonString) { // new parseJSON()
+                    println("****Dictionary \(dictionary)")
+                }
             }
             
             tableView.reloadData()
