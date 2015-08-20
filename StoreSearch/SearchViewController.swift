@@ -88,6 +88,32 @@ class SearchViewController: UIViewController {
         alert.addAction(action)
         presentViewController(alert, animated: true, completion: nil)
     }
+   
+    // goes through top-level dictionary and looks at each search result in turn
+    func parseDictionary(dictionary: [String: AnyObject]) {
+        
+        //1.making sure dictionary has a key named "results" that contains an array
+        if let array: AnyObject = dictionary["results"] {
+            //2. Loop through the each items in the array(each items are dictionary)
+            for resultDict in array as! [AnyObject] {
+                //3.casting each dictionary items(type AnyObject) to the right type(AnyObject)
+                if let resultDict = resultDict as? [String: AnyObject] {
+                    //4.for each dictionaries, print its wrapperType and kind
+                    if let wrapperType = resultDict["wrapperType"] as? String {
+                        if let kind = resultDict["kind"] as? String {
+                            println("wrapperType: \(wrapperType), kind: \(kind)")
+                        }
+                    }
+                    //5. If something went wrong, print out a message for debugging purposes
+                } else {
+                    println("Expected a dictionary")
+                }
+            }
+        } else {
+            println("Expected 'results' array")
+        }
+    }
+    
 }//end of SearchViewController
 
 extension SearchViewController: UISearchBarDelegate {
@@ -105,6 +131,7 @@ extension SearchViewController: UISearchBarDelegate {
                 println("Received JSON string '\(jsonString)'")
                 if let dictionary = parseJSON(jsonString) { // new parseJSON()
                     println("****Dictionary \(dictionary)")
+                    parseDictionary(dictionary)
                     tableView.reloadData()
                     return
                 }
