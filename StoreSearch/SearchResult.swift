@@ -18,4 +18,14 @@ class SearchResult {
     var currency = ""
     var price = 0.0
     var genre = ""
+}// end of SearchResult class
+
+//Operator overloading. creating "<" function to help in sorting
+func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.name.localizedStandardCompare(rhs.name) == NSComparisonResult.OrderedAscending
+}
+
+//Exercise: Sort in decending order of the name
+func > (lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.name.localizedStandardCompare(rhs.name) == NSComparisonResult.OrderedDescending
 }
