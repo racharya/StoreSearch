@@ -249,6 +249,8 @@ extension SearchViewController: UISearchBarDelegate {
                     if let dictionary = parseJSON(jsonString) { // new parseJSON()
                     println("****Dictionary \(dictionary)")
                     searchResults = parseDictionary(dictionary)
+                    //sorting search results using operator overloading method 
+                    searchResults.sort(<)
                     tableView.reloadData()
                     return
                     }
