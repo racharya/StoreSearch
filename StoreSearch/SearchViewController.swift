@@ -90,19 +90,27 @@ class SearchViewController: UIViewController {
     }
    
     // goes through top-level dictionary and looks at each search result in turn
-    func parseDictionary(dictionary: [String: AnyObject]) {
+    func parseDictionary(dictionary: [String: AnyObject]) ->  [SearchResult] {
         
+        var searchResults = [SearchResult]()
         //1.making sure dictionary has a key named "results" that contains an array
         if let array: AnyObject = dictionary["results"] {
             //2. Loop through the each items in the array(each items are dictionary)
             for resultDict in array as! [AnyObject] {
                 //3.casting each dictionary items(type AnyObject) to the right type(AnyObject)
                 if let resultDict = resultDict as? [String: AnyObject] {
-                    //4.for each dictionaries, print its wrapperType and kind
+                    var searchResult: SearchResult?
+                    //if found item is a "track" then create a SearchResult object using parseTrack()
                     if let wrapperType = resultDict["wrapperType"] as? String {
-                        if let kind = resultDict["kind"] as? String {
-                            println("wrapperType: \(wrapperType), kind: \(kind)")
+                        switch wrapperType {
+                        case "track":
+                            searchResult = parseTrack(resultDict)
+                        default:
+                            break
                         }
+                    }
+                    if let result = searchResult {
+                        searchResults.append(result) //add to searchResults array
                     }
                     //5. If something went wrong, print out a message for debugging purposes
                 } else {
@@ -112,6 +120,27 @@ class SearchViewController: UIViewController {
         } else {
             println("Expected 'results' array")
         }
+        return searchResults
+    }
+    
+    func parseTrack(dictionary: [String : AnyObject]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["trackName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkURL60 = dictionary["artworkUrl60"] as! String
+        searchResult.artworkURL100 = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["trackViewUrl"] as! String
+        searchResult.kind = dictionary["kind"] as! String
+        searchResult.currency = dictionary["currency"] as! String
+        
+        if let price = dictionary["trackPrice"] as? Double {
+            searchResult.price = price
+        }
+        if let genre = dictionary["primaryGenreName"] as? String {
+            searchResult.genre = genre
+        }
+        return searchResult
     }
     
 }//end of SearchViewController
@@ -131,7 +160,7 @@ extension SearchViewController: UISearchBarDelegate {
                 println("Received JSON string '\(jsonString)'")
                 if let dictionary = parseJSON(jsonString) { // new parseJSON()
                     println("****Dictionary \(dictionary)")
-                    parseDictionary(dictionary)
+                    searchResults = parseDictionary(dictionary)
                     tableView.reloadData()
                     return
                 }
