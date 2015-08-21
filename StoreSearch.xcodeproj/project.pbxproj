@@ -17,6 +17,7 @@
 		8032DECF1B805665002623BC /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8032DECE1B805665002623BC /* SearchResultCell.xib */; };
 		8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DED01B8071E8002623BC /* SearchResultCell.swift */; };
 		80CDBDC61B819856008B815D /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CDBDC51B819856008B815D /* NothingFoundCell.xib */; };
+		80F781E81B86D004002800DC /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F781E71B86D004002800DC /* LoadingCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		8032DECE1B805665002623BC /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		8032DED01B8071E8002623BC /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		80CDBDC51B819856008B815D /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		80F781E71B86D004002800DC /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				8032DEAC1B7FB4A2002623BC /* AppDelegate.swift */,
 				8032DEB31B7FB4A2002623BC /* Images.xcassets */,
 				8032DEB51B7FB4A2002623BC /* LaunchScreen.xib */,
+				80F781E71B86D004002800DC /* LoadingCell.xib */,
 				8032DEB01B7FB4A2002623BC /* Main.storyboard */,
 				80CDBDC51B819856008B815D /* NothingFoundCell.xib */,
 				8032DECC1B802664002623BC /* SearchResult.swift */,
@@ -206,6 +209,7 @@
 			files = (
 				8032DEB21B7FB4A2002623BC /* Main.storyboard in Resources */,
 				8032DEB71B7FB4A2002623BC /* LaunchScreen.xib in Resources */,
+				80F781E81B86D004002800DC /* LoadingCell.xib in Resources */,
 				8032DECF1B805665002623BC /* SearchResultCell.xib in Resources */,
 				80CDBDC61B819856008B815D /* NothingFoundCell.xib in Resources */,
 				8032DEB41B7FB4A2002623BC /* Images.xcassets in Resources */,
