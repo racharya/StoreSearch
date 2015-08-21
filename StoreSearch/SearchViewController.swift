@@ -51,23 +51,21 @@ class SearchViewController: UIViewController {
     func urlWithSearchText(searchText: String) -> NSURL {
         
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
-        let urlString = String(format: "http://itunes.apple.com/searchLOL?term=%@&limit=200", escapedSearchText)
+        let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
         let url = NSURL(string: urlString)
         //force unwrapping failable initializers to return an actual NSURL obj
         return url!
     }
     
-    func parseJSON(jsonString: String) -> [String: AnyObject]? { // returns dictionary of type [String: AnyObject]
+    func parseJSON(data: NSData) -> [String: AnyObject]? { // returns dictionary of type [String: AnyObject]
         
-        //Since JSON is alreay in a String form, need to put it into an NSData object before conversion to dictionary
-        if let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) {
-            var error: NSError?
-            //Using NSJSONSerialization class to conver the JSON search results to a Dictionary
-            if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &error) as? [String: AnyObject] {
-                return json
-            } else if let error = error {
-                println("Unknown JSON Error")
-            }
+        var error: NSError?
+        if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &error) as? [String: AnyObject] {
+            return json
+        } else if let error = error {
+            println("JSON Error: \(error)")
+        } else {
+            println("Unknown JSON Error")
         }
         return nil
     }
@@ -242,18 +240,36 @@ extension SearchViewController: UISearchBarDelegate {
         //received the reply from the server
         let dataTask = session.dataTaskWithURL(url, completionHandler:{
             data, response, error in
-                
+            println("On main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
             //4. do this in case of error
             if let error = error {
                 println("Failure! \(error)")
             } else if let httpResponse = response as? NSHTTPURLResponse {
                 if httpResponse.statusCode == 200 {
-                println("Success! \(data)")
+                    //converting JSON into dictionary
+                    if let dictionary = self.parseJSON(data){
+                    self.searchResults = self.parseDictionary(dictionary)
+                    self.searchResults.sort(<)
+                    
+                    // swtiching back to main thread to update UIs
+                    dispatch_async(dispatch_get_main_queue()) {
+                        println("On main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
+                            self.isLoading = false
+                            self.tableView.reloadData()
+                    }
+                    return
+                }
                 } else {
                     println("Failure!\(response)")
                 }
             }
-            })
+            dispatch_async(dispatch_get_main_queue()) {
+                self.hasSearched = false
+                self.isLoading = false
+                self.tableView.reloadData()
+                self.showNetworkError()
+            }
+        })
             //5. once data task is created, we work on background thread to start it
             dataTask.resume()// makes asynchronous
         
