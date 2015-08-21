@@ -14,7 +14,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var searchResults = [SearchResult]()
     var hasSearched = false
-    //    @IBOutlet weak var searchBar2: UISearchBar!
+    var isLoading = false
     
     //new struct to reuse identifier
     struct TableViewCellIdentifiers {
@@ -22,17 +22,22 @@ class SearchViewController: UIViewController {
         //static value can be used without an instance
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
+        static let loadingCell = "LoadingCell"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //tells table view to add a 64 pt margin at the top, (20 for status bar and 44 for search bar)
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        
         //load nib, ask table view to register it using identifier
         var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
         cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
+        cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+        
         tableView.rowHeight = 80
         searchBar.becomeFirstResponder()
     }
@@ -46,7 +51,7 @@ class SearchViewController: UIViewController {
     func urlWithSearchText(searchText: String) -> NSURL {
         
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
-        let urlString = String(format: "http://itunes.apple.com/search?term=%@", escapedSearchText)
+        let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
         let url = NSURL(string: urlString)
         //force unwrapping failable initializers to return an actual NSURL obj
         return url!
@@ -238,37 +243,42 @@ extension SearchViewController: UISearchBarDelegate {
                     
                     if !searchBar.text.isEmpty {
         searchBar.resignFirstResponder() // tells UISearchBar that it should no longer listen to keyboard input
-        println("The search text is: '\(searchBar.text)'")
-        hasSearched = true
+        isLoading = true
+        tableView.reloadData()
         
-        searchResults = [SearchResult]()//clear old collection
-        let url = urlWithSearchText(searchBar.text)
-        println("URL: '\(url)'")
-        if let jsonString = performStoreRequestWithURL(url) {//invokes search and returns json data received from the server
-                    println("Received JSON string '\(jsonString)'")
-                    if let dictionary = parseJSON(jsonString) { // new parseJSON()
-                    println("****Dictionary \(dictionary)")
-                    searchResults = parseDictionary(dictionary)
-                    //sorting search results using operator overloading method 
-                    searchResults.sort(<)
-                    tableView.reloadData()
-                    return
-                    }
-        }
-        showNetworkError()
+//        println("The search text is: '\(searchBar.text)'")
+//        hasSearched = true
+//        
+//        searchResults = [SearchResult]()//clear old collection
+//        let url = urlWithSearchText(searchBar.text)
+//        println("URL: '\(url)'")
+//        if let jsonString = performStoreRequestWithURL(url) {//invokes search and returns json data received from the server
+//                    println("Received JSON string '\(jsonString)'")
+//                    if let dictionary = parseJSON(jsonString) { // new parseJSON()
+//                    println("****Dictionary \(dictionary)")
+//                    searchResults = parseDictionary(dictionary)
+//                    //sorting search results using operator overloading method
+//                    searchResults.sort(<)
+//                    isLoading = false
+//                    tableView.reloadData()
+//                    return
+//                    }
+//        }
+//        showNetworkError()
                     }
                     }
                     
                     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-    return .TopAttached
+                        return .TopAttached
                     }
 }//end of extension UISearchBarDelegate
 
 extension SearchViewController: UITableViewDataSource {
             
             func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            
-            if !hasSearched {
+            if isLoading {
+            return 1
+        } else if !hasSearched {
             return 0
         } else if searchResults.count == 0 {
             return 1
@@ -278,38 +288,45 @@ extension SearchViewController: UITableViewDataSource {
             }
             
             func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-                        
-                        if searchResults.count == 0 {
-            return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath) as! UITableViewCell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
-            let searchResult = searchResults[indexPath.row]
-            cell.nameLabel.text = searchResult.name
-            if searchResult.artistName.isEmpty {
-                        cell.artistNameLabel.text = "Unknown"//if no artist name found
-                    } else {
-                        //adding kind property tells user what kind of product it is
-                        cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
-            }
             
-            return cell
+            if isLoading {
+                        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath) as! UITableViewCell
+                        let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
+                        spinner.startAnimating()
+                        return cell
+                        
+                    } else if searchResults.count == 0 {
+                        return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath) as! UITableViewCell
+                    } else {
+                        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
+                        let searchResult = searchResults[indexPath.row]
+                        cell.nameLabel.text = searchResult.name
+                        if searchResult.artistName.isEmpty {
+                cell.artistNameLabel.text = "Unknown"//if no artist name found
+            } else {
+                //adding kind property tells user what kind of product it is
+                cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
                         }
+                        
+                        return cell
+            }
             }
             
 }//end of UITableViewDataSource
 
 extension SearchViewController: UITableViewDelegate {
-                //deselects the row with animation
-                func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                }
-                //make sure to select only row with actual search results
-                func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-                if searchResults.count == 0 {
+    //deselects the row with animation
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+                            
+    //make sure to select only row with actual search results
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if searchResults.count == 0 || isLoading {
             return nil
         } else {
             return indexPath
-                }
-                }
-                
+        }
+    }
+                            
 }//end of UITableViewDelegate
