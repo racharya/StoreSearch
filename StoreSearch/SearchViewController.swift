@@ -51,7 +51,7 @@ class SearchViewController: UIViewController {
     func urlWithSearchText(searchText: String) -> NSURL {
         
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
-        let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
+        let urlString = String(format: "http://itunes.apple.com/searchLOL?term=%@&limit=200", escapedSearchText)
         let url = NSURL(string: urlString)
         //force unwrapping failable initializers to return an actual NSURL obj
         return url!
@@ -246,8 +246,12 @@ extension SearchViewController: UISearchBarDelegate {
             //4. do this in case of error
             if let error = error {
                 println("Failure! \(error)")
-            } else {
-                println("Success! \(response)")
+            } else if let httpResponse = response as? NSHTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                println("Success! \(data)")
+                } else {
+                    println("Failure!\(response)")
+                }
             }
             })
             //5. once data task is created, we work on background thread to start it
