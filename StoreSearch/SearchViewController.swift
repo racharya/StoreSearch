@@ -239,34 +239,43 @@ class SearchViewController: UIViewController {
 }//end of SearchViewController
 
 extension SearchViewController: UISearchBarDelegate {
-                    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
                     
-                    if !searchBar.text.isEmpty {
+        if !searchBar.text.isEmpty {
         searchBar.resignFirstResponder() // tells UISearchBar that it should no longer listen to keyboard input
         isLoading = true
         tableView.reloadData()
         
-//        println("The search text is: '\(searchBar.text)'")
-//        hasSearched = true
-//        
-//        searchResults = [SearchResult]()//clear old collection
-//        let url = urlWithSearchText(searchBar.text)
-//        println("URL: '\(url)'")
-//        if let jsonString = performStoreRequestWithURL(url) {//invokes search and returns json data received from the server
-//                    println("Received JSON string '\(jsonString)'")
-//                    if let dictionary = parseJSON(jsonString) { // new parseJSON()
-//                    println("****Dictionary \(dictionary)")
-//                    searchResults = parseDictionary(dictionary)
-//                    //sorting search results using operator overloading method
-//                    searchResults.sort(<)
-//                    isLoading = false
-//                    tableView.reloadData()
-//                    return
-//                    }
-//        }
-//        showNetworkError()
-                    }
-                    }
+        hasSearched = true
+        searchResults = [SearchResult]()//clear old collection
+        
+        //1.gets a reference to the queue
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        
+        //2.once we have the queue, we can dispatch a closure on it
+        dispatch_async(queue) {
+        // this is the closure which gets put on the queue and executes asynchronously in the background
+        let url = self.urlWithSearchText(searchBar.text)
+                    
+        if let jsonString = self.performStoreRequestWithURL(url){
+            if let dictionary = self.parseJSON(jsonString) {
+                self.searchResults = self.parseDictionary(dictionary)
+                self.searchResults.sort(<)
+                        
+        dispatch_async(dispatch_get_main_queue()){//dispatch_get_main_queue returns reference to the main queue and dispatch_async 
+        //schedules a new closure on that queue
+            self.isLoading = false
+            self.tableView.reloadData()
+        }
+    
+                }
+            }
+        dispatch_async(dispatch_get_main_queue()) {
+            self.showNetworkError()
+            }
+        }
+    }
+}
                     
                     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
                         return .TopAttached
