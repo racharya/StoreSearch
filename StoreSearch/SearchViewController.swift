@@ -57,21 +57,6 @@ class SearchViewController: UIViewController {
         return url!
     }
     
-    func performStoreRequestWithURL(url: NSURL) -> String? {
-        
-        var error: NSError?
-        // String(contentsOfURL, encoding, error) is a constructor of the String class that returns a
-        //new string object with the data that it receives from the server at the other end of the URL
-        if let resultString = String(contentsOfURL: url, encoding: NSUTF8StringEncoding, error: &error) {
-            return resultString
-        } else if let error = error {
-            println("Download Error: \(error)")
-        } else {
-            println("Unknown Download Error")
-        }
-        return nil
-    }
-    
     func parseJSON(jsonString: String) -> [String: AnyObject]? { // returns dictionary of type [String: AnyObject]
         
         //Since JSON is alreay in a String form, need to put it into an NSData object before conversion to dictionary
@@ -249,37 +234,31 @@ extension SearchViewController: UISearchBarDelegate {
         hasSearched = true
         searchResults = [SearchResult]()//clear old collection
         
-        //1.gets a reference to the queue
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        
-        //2.once we have the queue, we can dispatch a closure on it
-        dispatch_async(queue) {
-        // this is the closure which gets put on the queue and executes asynchronously in the background
+        //1.create NSURL object with search text
         let url = self.urlWithSearchText(searchBar.text)
-                    
-        if let jsonString = self.performStoreRequestWithURL(url){
-            if let dictionary = self.parseJSON(jsonString) {
-                self.searchResults = self.parseDictionary(dictionary)
-                self.searchResults.sort(<)
-                        
-        dispatch_async(dispatch_get_main_queue()){//dispatch_get_main_queue returns reference to the main queue and dispatch_async 
-        //schedules a new closure on that queue
-            self.isLoading = false
-            self.tableView.reloadData()
-        }
-    
-                }
+        //2.obtain the NSURLSession obj
+        let session = NSURLSession.sharedSession()
+        //3. create dataTask for sending HTTP GET request. The code from completionHandler will be invoked after the data task has 
+        //received the reply from the server
+        let dataTask = session.dataTaskWithURL(url, completionHandler:{
+            data, response, error in
+                
+            //4. do this in case of error
+            if let error = error {
+                println("Failure! \(error)")
+            } else {
+                println("Success! \(response)")
             }
-        dispatch_async(dispatch_get_main_queue()) {
-            self.showNetworkError()
-            }
-        }
-    }
+            })
+            //5. once data task is created, we work on background thread to start it
+            dataTask.resume()// makes asynchronous
+        
+     }
 }
                     
-                    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-                        return .TopAttached
-                    }
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
+    }
 }//end of extension UISearchBarDelegate
 
 extension SearchViewController: UITableViewDataSource {
