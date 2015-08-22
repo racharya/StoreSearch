@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     var searchResults = [SearchResult]()
     var hasSearched = false
     var isLoading = false
+    var dataTask: NSURLSessionDataTask?
     
     //new struct to reuse identifier
     struct TableViewCellIdentifiers {
@@ -226,6 +227,7 @@ extension SearchViewController: UISearchBarDelegate {
                     
         if !searchBar.text.isEmpty {
         searchBar.resignFirstResponder() // tells UISearchBar that it should no longer listen to keyboard input
+        dataTask?.cancel()//if there was an active data task this will cancel it so no old searches can ever get in the way of new search
         isLoading = true
         tableView.reloadData()
         
@@ -238,12 +240,14 @@ extension SearchViewController: UISearchBarDelegate {
         let session = NSURLSession.sharedSession()
         //3. create dataTask for sending HTTP GET request. The code from completionHandler will be invoked after the data task has 
         //received the reply from the server
-        let dataTask = session.dataTaskWithURL(url, completionHandler:{
+        dataTask = session.dataTaskWithURL(url, completionHandler:{
             data, response, error in
             println("On main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
             //4. do this in case of error
             if let error = error {
                 println("Failure! \(error)")
+                //skip rest of the code in the closure if error code = -999
+                if error.code == -999 {return}
             } else if let httpResponse = response as? NSHTTPURLResponse {
                 if httpResponse.statusCode == 200 {
                     //converting JSON into dictionary
@@ -271,7 +275,7 @@ extension SearchViewController: UISearchBarDelegate {
             }
         })
             //5. once data task is created, we work on background thread to start it
-            dataTask.resume()// makes asynchronous
+            dataTask?.resume()// makes asynchronous
         
      }
 }
