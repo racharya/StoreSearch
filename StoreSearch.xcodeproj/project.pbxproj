@@ -18,6 +18,7 @@
 		809425731B898BC7009E2B93 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */; };
 		80CDBDC61B819856008B815D /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CDBDC51B819856008B815D /* NothingFoundCell.xib */; };
 		80F781E81B86D004002800DC /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F781E71B86D004002800DC /* LoadingCell.xib */; };
+		80FF13BD1B8A3EE200508CF1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FF13BC1B8A3EE200508CF1 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		80CDBDC51B819856008B815D /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		80F781E71B86D004002800DC /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
+		80FF13BC1B8A3EE200508CF1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				8032DEAE1B7FB4A2002623BC /* SearchViewController.swift */,
 				8032DEAA1B7FB4A2002623BC /* Supporting Files */,
 				809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */,
+				80FF13BC1B8A3EE200508CF1 /* DetailViewController.swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				8032DEAF1B7FB4A2002623BC /* SearchViewController.swift in Sources */,
 				8032DECD1B802664002623BC /* SearchResult.swift in Sources */,
 				8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */,
+				80FF13BD1B8A3EE200508CF1 /* DetailViewController.swift in Sources */,
 				8032DEAD1B7FB4A2002623BC /* AppDelegate.swift in Sources */,
 				809425731B898BC7009E2B93 /* UIImageView+DownloadImage.swift in Sources */,
 			);
