@@ -213,23 +213,7 @@ class SearchViewController: UIViewController {
                 }
                 return searchResult
     }
-    
-    //converts internal identifier to the text we want to show to the user
-    func kindForDisplay(kind: String) -> String {
-                    switch kind {
-                case "album": return "Album"
-                case "audiobook": return "Audio Book"
-                case "book": return "Book"
-                case "ebook": return "E-Book"
-                case "feature-movie": return "Movie"
-                case "music-video": return "Music Video"
-                case "podcast": return "Podcast"
-                case "software": return "App"
-                case "song": return "Song"
-                case "tv-episode": return "TV Episode"
-                default: return kind
-                    }
-    }
+
     
     @IBAction func segmentChanged(sender: UISegmentedControl) {
         performSearch()
@@ -317,30 +301,23 @@ extension SearchViewController: UITableViewDataSource {
             }
             }
             
-            func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             
             if isLoading {
-                        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath) as! UITableViewCell
-                        let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
-                        spinner.startAnimating()
-                        return cell
+                let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath) as! UITableViewCell
+                let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
+                    spinner.startAnimating()
+                    return cell
                         
-                    } else if searchResults.count == 0 {
-                        return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath) as! UITableViewCell
-                    } else {
-                        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
-                        let searchResult = searchResults[indexPath.row]
-                        cell.nameLabel.text = searchResult.name
-                        if searchResult.artistName.isEmpty {
-                cell.artistNameLabel.text = "Unknown"//if no artist name found
+            } else if searchResults.count == 0 {
+                return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath) as! UITableViewCell
             } else {
-                //adding kind property tells user what kind of product it is
-                cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
-                        }
-                        
-                        return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
+                let searchResult = searchResults[indexPath.row]
+                cell.configureForSearchResult(searchResult)
+                    return cell
             }
-            }
+    }
             
 }//end of UITableViewDataSource
 
