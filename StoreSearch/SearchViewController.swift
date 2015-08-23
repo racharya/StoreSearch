@@ -325,6 +325,7 @@ extension SearchViewController: UITableViewDelegate {
     //deselects the row with animation
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        performSegueWithIdentifier("ShowDetail", sender: indexPath) // manually triggers the segue when user taps on row
     }
                             
     //make sure to select only row with actual search results
