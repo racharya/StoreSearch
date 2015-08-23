@@ -10,6 +10,7 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
+   
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     var searchResults = [SearchResult]()
@@ -17,6 +18,7 @@ class SearchViewController: UIViewController {
     var isLoading = false
     var dataTask: NSURLSessionDataTask?
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     //new struct to reuse identifier
     struct TableViewCellIdentifiers {
         //common trick to use static let
@@ -29,7 +31,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //tells table view to add a 64 pt margin at the top, (20 for status bar and 44 for search bar)
-        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 108, left: 0, bottom: 0, right: 0)
         
         //load nib, ask table view to register it using identifier
         var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
@@ -220,10 +222,17 @@ class SearchViewController: UIViewController {
                     }
     }
     
+    @IBAction func segmentChanged(sender: UISegmentedControl) {
+        performSearch()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        performSearch()
+    }
 }//end of SearchViewController
 
 extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func performSearch() {
                     
         if !searchBar.text.isEmpty {
         searchBar.resignFirstResponder() // tells UISearchBar that it should no longer listen to keyboard input
