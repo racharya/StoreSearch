@@ -51,10 +51,19 @@ class SearchViewController: UIViewController {
     }
     
     //Builds url as a string by placing the text from the search bar behind the "term=" param and then returns this string into an NSURL obj
-    func urlWithSearchText(searchText: String) -> NSURL {
+    func urlWithSearchText(searchText: String, category: Int) -> NSURL {
+        
+        var entityName: String
+        //turns category index from a number into a string
+        switch category {
+        case 1: entityName = "musicTrack"
+        case 2: entityName = "software"
+        case 3: entityName = "ebook"
+        default: entityName = ""
+        }
         
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
-        let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
+        let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = NSURL(string: urlString)
         //force unwrapping failable initializers to return an actual NSURL obj
         return url!
@@ -244,7 +253,7 @@ extension SearchViewController: UISearchBarDelegate {
         searchResults = [SearchResult]()//clear old collection
         
         //1.create NSURL object with search text
-        let url = self.urlWithSearchText(searchBar.text)
+        let url = self.urlWithSearchText(searchBar.text, category: segmentedControl.selectedSegmentIndex)
         //2.obtain the NSURLSession obj
         let session = NSURLSession.sharedSession()
         //3. create dataTask for sending HTTP GET request. The code from completionHandler will be invoked after the data task has 
