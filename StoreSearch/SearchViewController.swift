@@ -244,7 +244,7 @@ extension SearchViewController: UISearchBarDelegate {
         //received the reply from the server
         dataTask = session.dataTaskWithURL(url, completionHandler:{
             data, response, error in
-            println("On main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
+            
             //4. do this in case of error
             if let error = error {
                 println("Failure! \(error)")
@@ -259,9 +259,8 @@ extension SearchViewController: UISearchBarDelegate {
                     
                     // swtiching back to main thread to update UIs
                     dispatch_async(dispatch_get_main_queue()) {
-                        println("On main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
-                            self.isLoading = false
-                            self.tableView.reloadData()
+                        self.isLoading = false
+                        self.tableView.reloadData()
                     }
                     return
                 }
@@ -284,6 +283,15 @@ extension SearchViewController: UISearchBarDelegate {
                     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
         return .TopAttached
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowDetail" {
+            let detailViewController = segue.destinationViewController as! DetailViewController
+            let indexPath = sender as! NSIndexPath
+            let searchResult = searchResults[indexPath.row]
+            detailViewController.searchResult = searchResult
+        }
     }
 }//end of extension UISearchBarDelegate
 
