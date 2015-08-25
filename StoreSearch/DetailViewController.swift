@@ -17,6 +17,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var kindLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var priceButton: UIButton!
+    var searchResult: SearchResult!
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,10 @@ class DetailViewController: UIViewController {
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
+        
+        if searchResult != nil {
+        updateUI()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +49,18 @@ class DetailViewController: UIViewController {
         //tells UIKit that this view controller uses custom presentation
         modalPresentationStyle = .Custom
         transitioningDelegate = self
+    }
+    
+    //updates the detains in the detail pop-up
+    func updateUI() {
+        nameLabel.text = searchResult.name
+        if searchResult.artistName.isEmpty {
+            artistNameLabel.text = "Unknown"
+        } else {
+            artistNameLabel.text = searchResult.artistName
+        }
+        kindLabel.text = searchResult.kindForDisplay()
+        genreLabel.text = searchResult.genre
     }
 }//end of DetailViewController: UIViewController
 
