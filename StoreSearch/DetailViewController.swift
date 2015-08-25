@@ -61,6 +61,20 @@ class DetailViewController: UIViewController {
         }
         kindLabel.text = searchResult.kindForDisplay()
         genreLabel.text = searchResult.genre
+        
+        //formatting currency
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        formatter.currencyCode = searchResult.currency
+        var priceText: String
+        if searchResult.price == 0 {
+            priceText = "Free"
+        } else if let text = formatter.stringFromNumber(searchResult.price) {
+            priceText = text
+        } else {
+            priceText = ""
+        }
+        priceButton.setTitle(priceText, forState: .Normal)
     }
 }//end of DetailViewController: UIViewController
 
