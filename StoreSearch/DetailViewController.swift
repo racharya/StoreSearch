@@ -18,7 +18,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var priceButton: UIButton!
     var searchResult: SearchResult!
-        
+    var downloadTask: NSURLSessionDownloadTask?// to cancel the download task
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10//gives round corners to the popupview
@@ -75,6 +76,10 @@ class DetailViewController: UIViewController {
             priceText = ""
         }
         priceButton.setTitle(priceText, forState: .Normal)
+        
+        if let url = NSURL(string: searchResult.artworkURL100) {
+            downloadTask = artworkImageView.loadImageWithURL(url)
+        }
     }
     
     @IBAction func openInStore() {
@@ -82,6 +87,12 @@ class DetailViewController: UIViewController {
             UIApplication.sharedApplication().openURL(url)
         }
     }
+    
+    //cancels image download if user closes the pop-up before the image has been download completely
+    deinit {
+        downloadTask?.cancel()
+    }
+    
 }//end of DetailViewController class
 
 
