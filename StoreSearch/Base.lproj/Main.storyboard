@@ -134,9 +134,13 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OM-dZ-2o2">
-                                        <rect key="frame" x="176" y="212" width="60" height="24"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OM-dZ-2o2">
+                                        <rect key="frame" x="166" y="212" width="60" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="6Qk-iy-I66"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                         <state key="normal" title="$9.99" backgroundImage="PriceButton">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -151,7 +155,9 @@
                                 <color key="backgroundColor" white="1" alpha="0.95000000000000007" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="NeD-LX-GOQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="1OM-dZ-2o2" secondAttribute="trailing" constant="14" id="dwW-Nh-han"/>
                                     <constraint firstAttribute="height" constant="240" id="i5E-2b-AtA"/>
+                                    <constraint firstAttribute="bottom" secondItem="1OM-dZ-2o2" secondAttribute="bottom" constant="4" id="pYf-bY-KHS"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -168,6 +174,7 @@
                         <outlet property="kindLabel" destination="9J9-PJ-0IR" id="0RO-O8-zir"/>
                         <outlet property="nameLabel" destination="aZb-Jt-SKX" id="boW-iN-fx2"/>
                         <outlet property="popupView" destination="cPw-If-cRl" id="KKk-nx-Iex"/>
+                        <outlet property="priceButton" destination="1OM-dZ-2o2" id="8w2-2P-uE8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nu1-ok-SpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
