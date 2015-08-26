@@ -17,6 +17,7 @@ class SearchViewController: UIViewController {
     var hasSearched = false
     var isLoading = false
     var dataTask: NSURLSessionDataTask?
+    var landscapeViewController: LandscapeViewController?
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     //new struct to reuse identifier
@@ -221,6 +222,44 @@ class SearchViewController: UIViewController {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         performSearch()
+    }
+    
+    //invoked on device rotations
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        
+        switch newCollection.verticalSizeClass {
+        case .Compact:
+            showLandscapeViewWithCoordinator(coordinator)
+        case .Regular, .Unspecified:
+            hideLandscapeViewWithCoordinator(coordinator)
+        }
+    }
+    
+    //shows new LandscapeViewControler as a modal screen. It is a child view controller of SearchViewController
+    func showLandscapeViewWithCoordinator(coordinator: UIViewControllerTransitionCoordinator) {
+        //1. makes sure that the view controller does not instantiates a second view when already looking at one
+        precondition(landscapeViewController == nil)
+        //2. instantiate "LandscapeViewController". Since there is no segue, we do it manually.
+        landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController
+        if let controller = landscapeViewController {
+            //3. set the size and position of new view controller. It is of the same size as the SearchViewController.
+            controller.view.frame = view.bounds
+            //4. minimum steps to add one view controller to another
+            view.addSubview(controller.view)//first step: add landscape controller vies as a subview
+            addChildViewController(controller)//2nd step: tell the SearchViewController that the new view controller manages the part of the screen
+            controller.didMoveToParentViewController(self)//3rd step: tell new view controller that it now has a parent view controller
+        }
+    }
+    
+    //hides the landscape view controller
+    func hideLandscapeViewWithCoordinator(coordinator: UIViewControllerTransitionCoordinator) {
+        if let controller = landscapeViewController {
+            controller.willMoveToParentViewController(nil)//tells the view controller that it is leaving the view controller hierarchy
+            controller.view.removeFromSuperview()//remove the view from the screen
+            controller.removeFromParentViewController()// truly dispose of the view controller
+            landscapeViewController = nil//removes the last strong reference to the LandscapeViewController
+        }
     }
 }//end of SearchViewController
 
