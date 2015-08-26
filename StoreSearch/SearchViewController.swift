@@ -245,10 +245,16 @@ class SearchViewController: UIViewController {
         if let controller = landscapeViewController {
             //3. set the size and position of new view controller. It is of the same size as the SearchViewController.
             controller.view.frame = view.bounds
+            controller.view.alpha = 0
             //4. minimum steps to add one view controller to another
             view.addSubview(controller.view)//first step: add landscape controller vies as a subview
             addChildViewController(controller)//2nd step: tell the SearchViewController that the new view controller manages the part of the screen
-            controller.didMoveToParentViewController(self)//3rd step: tell new view controller that it now has a parent view controller
+            coordinator.animateAlongsideTransition({_ in
+                controller.view.alpha = 1
+                },
+                completion: {_ in
+                    controller.didMoveToParentViewController(self)//3rd step: tell new view controller that it now has a parent view controller
+            })
         }
     }
     
@@ -256,9 +262,13 @@ class SearchViewController: UIViewController {
     func hideLandscapeViewWithCoordinator(coordinator: UIViewControllerTransitionCoordinator) {
         if let controller = landscapeViewController {
             controller.willMoveToParentViewController(nil)//tells the view controller that it is leaving the view controller hierarchy
+            coordinator.animateAlongsideTransition({_ in
+                controller.view.alpha = 0
+        }, completion: {_ in
             controller.view.removeFromSuperview()//remove the view from the screen
             controller.removeFromParentViewController()// truly dispose of the view controller
-            landscapeViewController = nil//removes the last strong reference to the LandscapeViewController
+            self.landscapeViewController = nil//removes the last strong reference to the LandscapeViewController
+        })
         }
     }
 }//end of SearchViewController
