@@ -33,6 +33,8 @@ class DetailViewController: UIViewController {
         
         if searchResult != nil {
         updateUI()
+        
+        view.backgroundColor = UIColor.clearColor()
         }
     }
 
