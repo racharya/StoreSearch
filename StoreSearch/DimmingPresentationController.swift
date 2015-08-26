@@ -21,5 +21,21 @@ class DimmingPresentationController: UIPresentationController {
         dimmingView.frame = containerView.bounds
         
         containerView.insertSubview(dimmingView, atIndex: 0)
+        
+        //makes the gradient view fade in
+        dimmingView.alpha = 0
+        if let transitionCoordinator = presentedViewController.transitionCoordinator() {
+            transitionCoordinator.animateAlongsideTransition({ _ in
+                self.dimmingView.alpha = 1}, completion: nil)
+        }
+    }
+    
+    //makes the gradient view fade out
+    override func dismissalTransitionWillBegin() {
+        if let transitionCoordinator = presentedViewController.transitionCoordinator() {
+            transitionCoordinator.animateAlongsideTransition({_ in
+                self.dimmingView.alpha = 0
+                }, completion: nil)
+        }
     }
 }// end of DimmingPresentationController
