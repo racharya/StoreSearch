@@ -18,6 +18,7 @@
 		8032DECD1B802664002623BC /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DECC1B802664002623BC /* SearchResult.swift */; };
 		8032DECF1B805665002623BC /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8032DECE1B805665002623BC /* SearchResultCell.xib */; };
 		8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8032DED01B8071E8002623BC /* SearchResultCell.swift */; };
+		807E63B11B8E4E5C0085EBD0 /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E63B01B8E4E5C0085EBD0 /* LandscapeViewController.swift */; };
 		809425731B898BC7009E2B93 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */; };
 		80CDBDC61B819856008B815D /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CDBDC51B819856008B815D /* NothingFoundCell.xib */; };
 		80F781E81B86D004002800DC /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F781E71B86D004002800DC /* LoadingCell.xib */; };
@@ -51,6 +52,7 @@
 		8032DECC1B802664002623BC /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		8032DECE1B805665002623BC /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		8032DED01B8071E8002623BC /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		807E63B01B8E4E5C0085EBD0 /* LandscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
 		809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		80CDBDC51B819856008B815D /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		80F781E71B86D004002800DC /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				80264D1B1B8D788E0038281D /* GradientView.swift */,
 				80264D1D1B8D80110038281D /* BounceAnimationController.swift */,
 				80264D1F1B8D8B8B0038281D /* SlideOutAnimationController.swift */,
+				807E63B01B8E4E5C0085EBD0 /* LandscapeViewController.swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				8032DECD1B802664002623BC /* SearchResult.swift in Sources */,
 				8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */,
 				80264D1E1B8D80110038281D /* BounceAnimationController.swift in Sources */,
+				807E63B11B8E4E5C0085EBD0 /* LandscapeViewController.swift in Sources */,
 				80FF13BD1B8A3EE200508CF1 /* DetailViewController.swift in Sources */,
 				8032DEAD1B7FB4A2002623BC /* AppDelegate.swift in Sources */,
 				80264D1C1B8D788E0038281D /* GradientView.swift in Sources */,
