@@ -251,10 +251,15 @@ class SearchViewController: UIViewController {
             addChildViewController(controller)//2nd step: tell the SearchViewController that the new view controller manages the part of the screen
             coordinator.animateAlongsideTransition({_ in
                 controller.view.alpha = 1
+                self.searchBar.resignFirstResponder() //disappear keyboard when flip the device
+                if self.presentedViewController != nil {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
                 },
                 completion: {_ in
                     controller.didMoveToParentViewController(self)//3rd step: tell new view controller that it now has a parent view controller
             })
+            
         }
     }
     
