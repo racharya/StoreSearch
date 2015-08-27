@@ -21,7 +21,7 @@ class GradientView: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clearColor()
-        autoresizingMask = .FlexibleWidth | .FlexibleHeightgs
+        autoresizingMask = .FlexibleWidth | .FlexibleHeight
         
     }
     
