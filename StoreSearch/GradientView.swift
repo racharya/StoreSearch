@@ -14,12 +14,15 @@ class GradientView: UIView {
     override init(frame: CGRect){
         super.init(frame: frame)
         backgroundColor = UIColor.clearColor()
+        autoresizingMask = .FlexibleWidth | .FlexibleHeight
     }
     
     //set the background color to fully transparent
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clearColor()
+        autoresizingMask = .FlexibleWidth | .FlexibleHeightgs
+        
     }
     
     //draws gradient on top of the transparent background
