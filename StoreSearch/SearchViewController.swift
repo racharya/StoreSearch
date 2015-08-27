@@ -243,6 +243,7 @@ class SearchViewController: UIViewController {
         //2. instantiate "LandscapeViewController". Since there is no segue, we do it manually.
         landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController
         if let controller = landscapeViewController {
+            controller.searchResults = searchResults// access searchResults before accessing view property from LSviewControler
             //3. set the size and position of new view controller. It is of the same size as the SearchViewController.
             controller.view.frame = view.bounds
             controller.view.alpha = 0
