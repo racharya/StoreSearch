@@ -225,19 +225,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LandscapeView" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDO-Cy-8ZC">
-                                <rect key="frame" x="240" y="289" width="121" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="n62-CO-5y9">
+                                <rect key="frame" x="280" y="500" width="39" height="37"/>
+                            </pageControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITa-C6-rdy">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="XDO-Cy-8ZC" secondAttribute="centerY" id="UI3-m7-gPT"/>
-                            <constraint firstAttribute="centerX" secondItem="XDO-Cy-8ZC" secondAttribute="centerX" id="VYU-Kq-wqG"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pageControl" destination="n62-CO-5y9" id="OZW-5O-xLq"/>
+                        <outlet property="scrollView" destination="ITa-C6-rdy" id="TjT-WV-6M4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXC-f3-u3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
