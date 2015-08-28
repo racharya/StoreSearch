@@ -122,7 +122,12 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     func performSearch() {
         
-        search.performSearchForText(searchBar.text, category: segmentedControl.selectedSegmentIndex)
+        search.performSearchForText(searchBar.text, category: segmentedControl.selectedSegmentIndex,completion: { success in
+            if !success {
+                self.showNetworkError()
+            }
+            self.tableView.reloadData()
+            })
         tableView.reloadData()
         searchBar.resignFirstResponder()
 }
