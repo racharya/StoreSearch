@@ -17,7 +17,25 @@ class Search {
     
     private var dataTask: NSURLSessionDataTask? = nil
     
-    func performSearchForText(text: String, category: Int, completion: SearchComplete) {
+    //new enumeration type with four possible items
+    enum Category: Int {
+        case All = 0
+        case Music = 1
+        case Software = 2
+        case EBook = 3
+        
+        //turns category index from a number into a string
+        var entityName: String {
+            switch self{
+            case .All: return ""
+            case .Music: return "musicTrack"
+            case .Software: return "software"
+            case .EBook: return "ebook"
+            }
+        }
+    }
+    
+    func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty{
             dataTask?.cancel()
             
@@ -58,17 +76,9 @@ class Search {
     
     
     //Builds url as a string by placing the text from the search bar behind the "term=" param and then returns this string into an NSURL obj
-    private func urlWithSearchText(searchText: String, category: Int) -> NSURL {
+    private func urlWithSearchText(searchText: String, category: Category) -> NSURL {
         
-        var entityName: String
-        //turns category index from a number into a string
-        switch category {
-        case 1: entityName = "musicTrack"
-        case 2: entityName = "software"
-        case 3: entityName = "ebook"
-        default: entityName = ""
-        }
-        
+        let entityName = category.entityName
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
         let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = NSURL(string: urlString)
