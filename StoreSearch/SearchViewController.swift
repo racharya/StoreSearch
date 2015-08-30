@@ -127,10 +127,14 @@ extension SearchViewController: UISearchBarDelegate {
                 self.showNetworkError()
             }
             self.tableView.reloadData()
+            if let controller = self.landscapeViewController {
+                controller.searchResultsReceived()
+            }
             })
         tableView.reloadData()
         searchBar.resignFirstResponder()
         }
+        
 }
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
