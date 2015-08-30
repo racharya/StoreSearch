@@ -113,8 +113,10 @@ class LandscapeViewController: UIViewController {
         var x = marginX
         //1.
         for (index, searchResult) in enumerate(searchResults) {
-            //2.
+            //2. create button
             let button = UIButton.buttonWithType(.Custom) as! UIButton
+            button.tag = 2000 + index
+            button.addTarget(self, action: Selector("buttonPressed:"), forControlEvents: .TouchUpInside)
             button.setBackgroundImage(UIImage(named: "LandscapeButton"), forState: .Normal)
             downloadImageForSearchResult(searchResult, andPlaceOnButton: button)
             //3.
@@ -217,6 +219,23 @@ class LandscapeViewController: UIViewController {
         
         label.center = CGPoint(x: CGRectGetMidX(scrollView.bounds), y: CGRectGetMidY(scrollView.bounds))
         view.addSubview(label)
+    }
+    
+    func buttonPressed(sender: UIButton) {
+        performSegueWithIdentifier("ShowDetail", sender: sender)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowDetail" {
+            switch search.state {
+            case .Results(let list):
+                let detailViewController = segue.destinationViewController as! DetailViewController
+                let searchResult = list[sender!.tag - 2000]
+                detailViewController.searchResult = searchResult
+            default:
+                break
+            }
+        }
     }
 
 }// end of LandscapeViewController
