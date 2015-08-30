@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias SearchComplete = (Bool) -> Void
 
@@ -44,6 +45,8 @@ class Search {
     func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty{
             dataTask?.cancel()
+            //makes animated spinner visible in the app's status bar
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             state = .Loading
             let url = urlWithSearchText(text, category: category)
             
