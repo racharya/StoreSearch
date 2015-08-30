@@ -211,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nu1-ok-SpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1302" y="360"/>
+            <point key="canvasLocation" x="1320" y="694"/>
         </scene>
         <!--Landscape View Controller-->
         <scene sceneID="pZR-31-tBD">
@@ -243,6 +243,7 @@
                     <connections>
                         <outlet property="pageControl" destination="n62-CO-5y9" id="OZW-5O-xLq"/>
                         <outlet property="scrollView" destination="ITa-C6-rdy" id="TjT-WV-6M4"/>
+                        <segue destination="5lI-HM-RAa" kind="presentation" identifier="ShowDetail" id="8KT-YJ-Biu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXC-f3-u3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -254,4 +255,7 @@
         <image name="CloseButton" width="15" height="15"/>
         <image name="PriceButton" width="11" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="8KT-YJ-Biu"/>
+    </inferredMetricsTieBreakers>
 </document>
