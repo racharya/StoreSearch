@@ -11,10 +11,6 @@ import Foundation
 typealias SearchComplete = (Bool) -> Void
 
 class Search {
-    var searchResults = [SearchResult]()
-    var hasSearched = false
-    var isLoading = false
-    
     private var dataTask: NSURLSessionDataTask? = nil
     
     //new enumeration type with four possible items
@@ -35,36 +31,41 @@ class Search {
         }
     }
     
+    enum State {
+        case NotSearchedYet
+        case Loading
+        case NoResults
+        case Results([SearchResult])//has a associated value, an array of SearchResult Objects
+    }
+    
+    //private(set) only allows reading for other objects but writing only happens inside Search class
+    private(set) var state: State = .NotSearchedYet //keeps tracks of search's current state
+    
     func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty{
             dataTask?.cancel()
-            
-            isLoading = true
-            hasSearched = true
-            searchResults = [SearchResult]()
-            
+            state = .Loading
             let url = urlWithSearchText(text, category: category)
             
             let session = NSURLSession.sharedSession()
             dataTask = session.dataTaskWithURL(url, completionHandler: {data, response, error in
+                self.state = .NotSearchedYet
                 var success = false
                 if let error = error {
                     if error.code == -999 {return} //Search was cancelled
                 } else if let httpResponse = response as? NSHTTPURLResponse {
                     if httpResponse.statusCode == 200 {
                         if let dictionary = self.parseJSON(data) {
-                            self.searchResults = self.parseDictionary(dictionary)
-                            self.searchResults.sort(<)
-                            
-                            println("Success!")
-                            self.isLoading = false
+                            var searchResults = self.parseDictionary(dictionary)
+                            if searchResults.isEmpty {
+                                self.state = .NoResults
+                            } else {
+                                searchResults.sort(<)
+                                self.state = .Results(searchResults)
+                            }
                             success = true
-                        }
                     }
-                }
-                if !success {
-                self.hasSearched = false
-                self.isLoading = false
+                  }
                 }
                 dispatch_async(dispatch_get_main_queue()) {
                     completion(success)
