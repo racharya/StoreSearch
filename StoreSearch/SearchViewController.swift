@@ -110,6 +110,9 @@ class SearchViewController: UIViewController {
             controller.willMoveToParentViewController(nil)//tells the view controller that it is leaving the view controller hierarchy
             coordinator.animateAlongsideTransition({_ in
                 controller.view.alpha = 0
+                if self.presentedViewController != nil {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
         }, completion: {_ in
             controller.view.removeFromSuperview()//remove the view from the screen
             controller.removeFromParentViewController()// truly dispose of the view controller
