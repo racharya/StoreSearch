@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		800B17871B9388C900028903 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 800B17851B9388C900028903 /* Localizable.strings */; };
 		80264D1C1B8D788E0038281D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80264D1B1B8D788E0038281D /* GradientView.swift */; };
 		80264D1E1B8D80110038281D /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80264D1D1B8D80110038281D /* BounceAnimationController.swift */; };
 		80264D201B8D8B8B0038281D /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80264D1F1B8D8B8B0038281D /* SlideOutAnimationController.swift */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		800B17861B9388C900028903 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		800B17891B938D1400028903 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80264D1B1B8D788E0038281D /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		80264D1D1B8D80110038281D /* BounceAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceAnimationController.swift; sourceTree = "<group>"; };
 		80264D1F1B8D8B8B0038281D /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 		8032DEAA1B7FB4A2002623BC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				800B17851B9388C900028903 /* Localizable.strings */,
 				8032DEAB1B7FB4A2002623BC /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -236,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8032DEB21B7FB4A2002623BC /* Main.storyboard in Resources */,
+				800B17871B9388C900028903 /* Localizable.strings in Resources */,
 				8080DB741B92DFB100F3B79A /* LoadingCell.xib in Resources */,
 				8080DB7B1B92E27700F3B79A /* SearchResultCell.xib in Resources */,
 				8080DB701B92DD1500F3B79A /* NothingFoundCell.xib in Resources */,
@@ -292,6 +297,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		800B17851B9388C900028903 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				800B17861B9388C900028903 /* en */,
+				800B17891B938D1400028903 /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		8032DEB01B7FB4A2002623BC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

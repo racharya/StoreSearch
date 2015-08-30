@@ -33,9 +33,9 @@ class SearchResultCell: UITableViewCell {
     func configureForSearchResult(searchResult: SearchResult) {
         nameLabel.text = searchResult.name
         if searchResult.artistName.isEmpty {
-            artistNameLabel.text = "Unknown"
+            artistNameLabel.text = NSLocalizedString("Unknown",comment: "Artist name label text")
         } else {
-            artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, searchResult.kindForDisplay())
+            artistNameLabel.text = String(format: NSLocalizedString("ARTIST_NAME_LABEL_FORMAT", comment: "Format for artist name label"),searchResult.artistName, searchResult.kindForDisplay())
         }
         //tells UIImageView to load the image from artworkURL60 and place it in the cell
         artworkImageView.image = UIImage(named: "Placeholder")
