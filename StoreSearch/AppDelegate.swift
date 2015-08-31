@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         customizeAppearance()
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        searchViewController.splitViewDetail = detailViewController
         return true
     }
 
