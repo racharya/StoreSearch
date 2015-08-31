@@ -89,7 +89,6 @@ class Search {
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!//escape the special characters
         let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@&lang=%@&country=%@", escapedSearchText, entityName, language, countryCode)
         let url = NSURL(string: urlString)
-        println("URL:\(url!)")
         //force unwrapping failable initializers to return an actual NSURL obj
         return url!
     }
