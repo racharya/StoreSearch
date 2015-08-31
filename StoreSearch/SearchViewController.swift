@@ -14,6 +14,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     var landscapeViewController: LandscapeViewController?
+    weak var splitViewDetail: DetailViewController?
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     let search = Search()
@@ -41,12 +42,16 @@ class SearchViewController: UIViewController {
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
         title = NSLocalizedString("Search", comment: "Split-view master button")
         tableView.rowHeight = 80
-        searchBar.becomeFirstResponder()
+        
+        //disable keyboard appearance in iPad when the app is just launched
+        if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+            searchBar.becomeFirstResponder()
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any resources that can be re-created.
     }
 
     func showNetworkError(){
@@ -123,6 +128,14 @@ class SearchViewController: UIViewController {
         })
         }
     }
+    
+    func hideMasterPane() {
+        UIView.animateWithDuration(0.25, animations: {
+            self.splitViewController!.preferredDisplayMode = .PrimaryHidden
+        }, completion: { _ in
+            self.splitViewController!.preferredDisplayMode = .Automatic
+        })
+    }
 }//end of SearchViewController
 
 extension SearchViewController: UISearchBarDelegate {
@@ -155,6 +168,7 @@ extension SearchViewController: UISearchBarDelegate {
                 let indexPath = sender as! NSIndexPath
                 let searchResult = list[indexPath.row]
                 detailViewController.searchResult = searchResult
+                detailViewController.isPopUp = true
             default:
                 break
             }
@@ -205,8 +219,21 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     //deselects the row with animation
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        searchBar.resignFirstResponder()
+        if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .Compact {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         performSegueWithIdentifier("ShowDetail", sender: indexPath) // manually triggers the segue when user taps on row
+        } else {
+            switch search.state {
+            case .Results(let list):
+                splitViewDetail?.searchResult = list[indexPath.row]
+            default:
+                break
+            }
+            if splitViewController!.displayMode != .AllVisible {
+                hideMasterPane()
+            }
+        }
     }
                             
     //make sure to select only row with actual search results
