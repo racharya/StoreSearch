@@ -165,10 +165,10 @@ extension SearchViewController: UISearchBarDelegate {
             switch search.state {
             case .Results(let list):
                 let detailViewController = segue.destinationViewController as! DetailViewController
+                detailViewController.isPopUp = true
                 let indexPath = sender as! NSIndexPath
                 let searchResult = list[indexPath.row]
                 detailViewController.searchResult = searchResult
-                detailViewController.isPopUp = true
             default:
                 break
             }
