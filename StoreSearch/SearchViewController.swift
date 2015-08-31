@@ -39,7 +39,7 @@ class SearchViewController: UIViewController {
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
         cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
-        
+        title = NSLocalizedString("Search", comment: "Split-view master button")
         tableView.rowHeight = 80
         searchBar.becomeFirstResponder()
     }
