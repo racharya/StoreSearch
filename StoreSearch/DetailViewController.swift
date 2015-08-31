@@ -17,9 +17,18 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var kindLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var priceButton: UIButton!
-    var searchResult: SearchResult!
-    var downloadTask: NSURLSessionDownloadTask?// to cancel the download task
+    //using didSet observer to perform functionality when the value of a property changes
+    //after searchResult has changed, call updateUI to set text on the labels
+    var searchResult: SearchResult!{
+        didSet {
+            if isViewLoaded(){
+                updateUI()
+            }
+        }
+    }
     
+    var downloadTask: NSURLSessionDownloadTask?// to cancel the download task
+    var isPopUp = false
     //enum to determine which animation is chosen for the Detail popup
     enum AnimationStyle {
         case Slide
@@ -31,20 +40,24 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10//gives round corners to the popupview
         view.tintColor = UIColor(red:20/255, green: 160/255, blue: 160/255, alpha:1)
+        if isPopUp {
+            //creates the new gesture recognizer and listens to the taps in the view and then calls close() in response
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
+            gestureRecognizer.cancelsTouchesInView = false
+            gestureRecognizer.delegate = self
+            view.addGestureRecognizer(gestureRecognizer)
         
-        //creates the new gesture recognizer and listens to the taps in the view and then calls close() in response
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
-        gestureRecognizer.cancelsTouchesInView = false
-        gestureRecognizer.delegate = self
-        view.addGestureRecognizer(gestureRecognizer)
-        
-        if searchResult != nil {
-        updateUI()
-        
-        view.backgroundColor = UIColor.clearColor()
+            view.backgroundColor = UIColor.clearColor()
+        } else {
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+            popupView.hidden = true
+            //App shows its name in the big navigation bar on top of the detail pane
+            if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? String {
+                title = displayName
+            }
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -90,6 +103,7 @@ class DetailViewController: UIViewController {
         if let url = NSURL(string: searchResult.artworkURL100) {
             downloadTask = artworkImageView.loadImageWithURL(url)
         }
+        popupView.hidden = false
     }
     
     @IBAction func openInStore() {
