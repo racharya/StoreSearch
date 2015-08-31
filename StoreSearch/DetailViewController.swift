@@ -40,6 +40,9 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10//gives round corners to the popupview
         view.tintColor = UIColor(red:20/255, green: 160/255, blue: 160/255, alpha:1)
+        if searchResult != nil {
+            updateUI()
+        }
         if isPopUp {
             //creates the new gesture recognizer and listens to the taps in the view and then calls close() in response
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
@@ -75,7 +78,7 @@ class DetailViewController: UIViewController {
         transitioningDelegate = self
     }
     
-    //updates the detains in the detail pop-up
+    //updates the details in the detail pop-up
     func updateUI() {
         nameLabel.text = searchResult.name
         if searchResult.artistName.isEmpty {
