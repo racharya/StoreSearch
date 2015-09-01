@@ -24,6 +24,7 @@
 		8080DB701B92DD1500F3B79A /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8080DB721B92DD1500F3B79A /* NothingFoundCell.xib */; };
 		8080DB741B92DFB100F3B79A /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8080DB761B92DFB100F3B79A /* LoadingCell.xib */; };
 		8080DB7B1B92E27700F3B79A /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8080DB7D1B92E27700F3B79A /* SearchResultCell.xib */; };
+		8091A0CD1B9645930019DCFD /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8091A0CC1B9645930019DCFD /* MenuViewController.swift */; };
 		809425731B898BC7009E2B93 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */; };
 		8097DAE41B90324A00950B43 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8097DAE31B90324A00950B43 /* Search.swift */; };
 		80FF13BD1B8A3EE200508CF1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FF13BC1B8A3EE200508CF1 /* DetailViewController.swift */; };
@@ -67,6 +68,7 @@
 		8080DB781B92DFCC00F3B79A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LoadingCell.strings; sourceTree = "<group>"; };
 		8080DB7A1B92E11400F3B79A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		8080DB7C1B92E27700F3B79A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SearchResultCell.xib; sourceTree = "<group>"; };
+		8091A0CC1B9645930019DCFD /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		809425721B898BC7009E2B93 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		8097DAE31B90324A00950B43 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		80FF13BC1B8A3EE200508CF1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				807E63B01B8E4E5C0085EBD0 /* LandscapeViewController.swift */,
 				8080DB761B92DFB100F3B79A /* LoadingCell.xib */,
 				8032DEB01B7FB4A2002623BC /* Main.storyboard */,
+				8091A0CC1B9645930019DCFD /* MenuViewController.swift */,
 				8080DB721B92DD1500F3B79A /* NothingFoundCell.xib */,
 				8097DAE31B90324A00950B43 /* Search.swift */,
 				8032DECC1B802664002623BC /* SearchResult.swift */,
@@ -271,6 +274,7 @@
 				8097DAE41B90324A00950B43 /* Search.swift in Sources */,
 				8032DEAF1B7FB4A2002623BC /* SearchViewController.swift in Sources */,
 				80FF13BF1B8A50D400508CF1 /* DimmingPresentationController.swift in Sources */,
+				8091A0CD1B9645930019DCFD /* MenuViewController.swift in Sources */,
 				807E63B31B8ECD100085EBD0 /* FadeOutAnimationController.swift in Sources */,
 				8032DECD1B802664002623BC /* SearchResult.swift in Sources */,
 				8032DED11B8071E8002623BC /* SearchResultCell.swift in Sources */,
