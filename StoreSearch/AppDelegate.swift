@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         customizeAppearance()
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         searchViewController.splitViewDetail = detailViewController
+        splitViewController.delegate = self
         return true
     }
 
@@ -65,8 +66,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UISearchBar.appearance().barTintColor = barTintColor
         window!.tintColor = UIColor(red: 10/225, green: 80/225, blue: 80/225, alpha: 1)
     }
-    
-    
+}
 
+
+extension AppDelegate: UISplitViewControllerDelegate {
+    //dismisses any presented view controller if its display mode is PrimaryOverlay
+    //in other words if master pane is visible, the popover is dismissed
+    func splitViewController(svc: UISplitViewController, willChangeToDisplayMode displayMode: UISplitViewControllerDisplayMode) {
+        println(__FUNCTION__)//prints name of the current function/method
+        if displayMode == .PrimaryOverlay {
+            svc.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
 }
 
