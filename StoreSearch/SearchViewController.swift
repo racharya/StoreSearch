@@ -76,18 +76,26 @@ class SearchViewController: UIViewController {
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
         
-        switch newCollection.verticalSizeClass {
-        case .Compact:
-            showLandscapeViewWithCoordinator(coordinator)
-        case .Regular, .Unspecified:
-            hideLandscapeViewWithCoordinator(coordinator)
+        let rect = UIScreen.mainScreen().bounds
+        //making rotation logic smarter for iPhone 6 plus whose dimension are 736 x 414
+        if (rect.width == 736 && rect.height == 414) || (rect.width == 414 && rect.height == 736) {
+            if presentedViewController != nil {
+                dismissViewControllerAnimated(true, completion: nil)
+            }
+        } else if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+            switch newCollection.verticalSizeClass {
+            case .Compact:
+                showLandscapeViewWithCoordinator(coordinator)
+            case .Regular, .Unspecified:
+                hideLandscapeViewWithCoordinator(coordinator)
+            }
         }
     }
     
     //shows new LandscapeViewControler as a modal screen. It is a child view controller of SearchViewController
     func showLandscapeViewWithCoordinator(coordinator: UIViewControllerTransitionCoordinator) {
         //1. makes sure that the view controller does not instantiates a second view when already looking at one
-        precondition(landscapeViewController == nil)
+        //precondition(landscapeViewController == nil)
         //2. instantiate "LandscapeViewController". Since there is no segue, we do it manually.
         landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController
         if let controller = landscapeViewController {
