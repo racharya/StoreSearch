@@ -41,7 +41,6 @@ class LandscapeViewController: UIViewController {
     
     //making sure the new view controller object is properly deallocated
     deinit {
-        println("deinit \(self)")
         for task in downloadTasks {
             task.cancel()
         }
@@ -143,7 +142,6 @@ class LandscapeViewController: UIViewController {
         let buttonsPerPage = columnsPerPage * rowsPerPage
         let numPages = 1 + (searchResults.count - 1)/buttonsPerPage
         scrollView.contentSize = CGSize(width: CGFloat(numPages)*scrollViewWidth, height: scrollView.bounds.size.height)
-        println("Number of pages: \(numPages)")
         pageControl.numberOfPages = numPages
         pageControl.currentPage = 0
     }
