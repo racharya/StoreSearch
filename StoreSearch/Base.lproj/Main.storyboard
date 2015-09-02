@@ -239,6 +239,11 @@
                                     </constraint>
                                     <constraint firstItem="qmj-WI-m16" firstAttribute="baseline" secondItem="YB9-iI-oxv" secondAttribute="baseline" id="zI7-WZ-dAB"/>
                                 </constraints>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <mask key="subviews">
+                                        <exclude reference="fda-Un-DQE"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="subviews">
                                         <exclude reference="fda-Un-DQE"/>
@@ -253,7 +258,9 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="cPw-If-cRl" secondAttribute="centerX" id="805-AT-5et"/>
-                            <constraint firstAttribute="centerY" secondItem="cPw-If-cRl" secondAttribute="centerY" id="JKc-mn-LmI"/>
+                            <constraint firstAttribute="centerY" secondItem="cPw-If-cRl" secondAttribute="centerY" id="JKc-mn-LmI">
+                                <variation key="heightClass=compact-widthClass=regular" constant="-20"/>
+                            </constraint>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -420,6 +427,6 @@
         <image name="PriceButton" width="11" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sdT-p8-vJj"/>
+        <segue reference="8KT-YJ-Biu"/>
     </inferredMetricsTieBreakers>
 </document>
