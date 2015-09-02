@@ -73,7 +73,7 @@ extension AppDelegate: UISplitViewControllerDelegate {
     //dismisses any presented view controller if its display mode is PrimaryOverlay
     //in other words if master pane is visible, the popover is dismissed
     func splitViewController(svc: UISplitViewController, willChangeToDisplayMode displayMode: UISplitViewControllerDisplayMode) {
-        println(__FUNCTION__)//prints name of the current function/method
+        //println(__FUNCTION__)//prints name of the current function/method
         if displayMode == .PrimaryOverlay {
             svc.dismissViewControllerAnimated(true, completion: nil)
         }
